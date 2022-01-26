@@ -13,13 +13,13 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@Document("user")
-public class User {
+@Document(collection = "thing")
+public class Thing {
 
     @MongoId
-    private String Id;
+    private String id;
     private String name;
-    private Integer age;
+    private double price;
+    private Integer left;
 
 }
-
