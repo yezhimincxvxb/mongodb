@@ -5,6 +5,7 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import com.yzm.mongodb01.entity.Thing;
 import org.bson.Document;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.CollectionOptions;
 import org.springframework.data.mongodb.core.FindAndReplaceOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -155,6 +156,18 @@ public class DemoController {
 //        mongoTemplate.findAndRemove(query, Thing.class);
 //        mongoTemplate.findAllAndRemove(query, Thing.class);
 //        mongoTemplate.remove(Thing.class).matching(query).one();
+    }
+
+    @GetMapping("/page")
+    public void page() {
+        // 分页查询
+        Query query = new Query()
+                .skip(1)
+                .limit(5)
+                //.with(Sort.by(Sort.Order.asc("age")))
+                .with(Sort.sort(Thing.class).by(Thing::getPrice).ascending());
+        List<Thing> list = mongoTemplate.find(query, Thing.class);
+        list.forEach(System.out::println);
     }
 
 
